@@ -1,0 +1,25 @@
+public class FloydTransportation {
+    public static void main(String[] args) {
+        final int INF = 99999;
+        int[][] dist = {
+            {0, 5, INF, 10},
+            {INF, 0, 3, INF},
+            {INF, INF, 0, 1},
+            {INF, INF, INF, 0}
+        };
+        int n = dist.length;
+
+        for (int k = 0; k < n; k++)
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    if (dist[i][k] + dist[k][j] < dist[i][j])
+                        dist[i][j] = dist[i][k] + dist[k][j];
+
+        System.out.println("Shortest Travel Time Matrix:");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++)
+                System.out.print((dist[i][j] == INF ? "INF" : dist[i][j]) + "\t");
+            System.out.println();
+        }
+    }
+}

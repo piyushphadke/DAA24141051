@@ -1,0 +1,44 @@
+import java.util.*;
+
+public class OBSTMenuSearch {
+    public static void main(String[] args) {
+        String[] menu = {"Exit", "Help", "New", "Open", "Save"};
+        double[] freq = {0.05, 0.1, 0.4, 0.2, 0.25};
+        int n = menu.length;
+        double[][] cost = new double[n + 1][n + 1];
+        double[][] weight = new double[n + 1][n + 1];
+        int[][] root = new int[n + 1][n + 1];
+
+        for (int i = 0; i < n; i++) {
+            cost[i][i] = freq[i];
+            weight[i][i] = freq[i];
+        }
+
+        for (int L = 2; L <= n; L++) {
+            for (int i = 0; i <= n - L; i++) {
+                int j = i + L - 1;
+                cost[i][j] = Double.MAX_VALUE;
+                weight[i][j] = weight[i][j - 1] + freq[j];
+                for (int r = i; r <= j; r++) {
+                    double c = ((r > i) ? cost[i][r - 1] : 0) + ((r < j) ? cost[r + 1][j] : 0) + weight[i][j];
+                    if (c < cost[i][j]) {
+                        cost[i][j] = c;
+                        root[i][j] = r;
+                    }
+                }
+            }
+        }
+
+        System.out.println("Optimal cost: " + cost[0][n - 1]);
+        System.out.println("OBST Menu Order:");
+        printOBST(menu, root, 0, n - 1);
+    }
+
+    static void printOBST(String[] menu, int[][] root, int i, int j) {
+        if (i > j) return;
+        int r = root[i][j];
+        System.out.println(menu[r]);
+        printOBST(menu, root, i, r - 1);
+        printOBST(menu, root, r + 1, j);
+    }
+}

@@ -1,0 +1,33 @@
+. import java.util.PriorityQueue;
+2. 
+3. public class MemoryManagementOptimalMerge {
+4.
+5.    public static int optimalMergeCost(int[] blocks) {
+6.        PriorityQueueInteger minHeap = new PriorityQueue();
+7.        
+8.         Add all free memory blocks to min-heap
+9.        for (int block  blocks) {
+10.            minHeap.add(block);
+1.	        }
+2.	        
+3.	        int totalCost = 0;
+4.	        
+5.	         Merge blocks until one block remains
+6.	        while (minHeap.size()  1) {
+7.	            int first = minHeap.poll();     Smallest block
+8.	            int second = minHeap.poll();    Next smallest block
+9.	            
+10.	            int merged = first + second;    Merge blocks
+11.	            totalCost += merged;            Add merge cost
+12.	            
+13.	            minHeap.add(merged);            Add merged block back
+14.	        }
+15.	        return totalCost;
+16.	    }
+17.	    
+18.	    public static void main(String[] args) {
+19.	        int[] freeBlocks = {20, 30, 10, 5, 15};
+20.	        int cost = optimalMergeCost(freeBlocks);
+21.	        System.out.println(Minimum total merge cost for memory blocks  + cost);
+22.	    }
+23.	}    }
