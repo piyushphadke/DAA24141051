@@ -1,0 +1,58 @@
+import java.util.*; 
+3.  
+4. class phonebook { 
+5.     
+static int bin(int si, int ei, long key, long[] arr) { 
+6.         
+if (si > ei) return -1; 
+7.         
+int mid = si + (ei - si) / 2; 
+8.         
+if (arr[mid] == key) { 
+9.             
+return mid; 
+10.         
+} else if (arr[mid] > key) { 
+11.             
+return bin(si, mid - 1, key, arr); 
+12.         
+} else { 
+13.             
+return bin(mid + 1, ei, key, arr); 
+14.         
+} 
+15.     
+} 
+16.  
+17.     public static void main(String[] args) { 
+18.         Scanner sc = new Scanner(System.in); 
+19.         HashMap<Long, String> s = new HashMap<>(); 
+20.         s.put(9370156300L, "ramesh"); 
+21.         s.put(987654321L, "suresh"); 
+22.         s.put(8421921166L, "ram"); 
+23.         s.put(9359404704L, "sham"); 
+24.         s.put(9860099236L, "sujit"); 
+25.  
+26.         int i = 0; 
+27.         long[] arr = new long[s.size()]; 
+28.         for (Long k : s.keySet()) { 
+29.             arr[i++] = k; 
+30.         } 
+31.         Arrays.sort(arr); 
+32.         int si = 0; 
+33.         int ei = s.size() - 1; 
+34.         System.out.println("enter contact no to search"); 
+35.         long key = sc.nextLong(); 
+36.         int result = bin(si, ei, key, arr); 
+37.  
+38.         if (result == -1) { 
+39.             System.out.println("wrong no"); 
+40.         } else { 
+41.             // found — print number and name 
+42.             long foundNumber = arr[result]; 
+43.             System.out.println(foundNumber + " - " + 
+s.get(foundNumber)); 
+44.         } 
+45.         sc.close(); 
+46.     } 
+47. 
